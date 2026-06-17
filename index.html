@@ -29,6 +29,11 @@
   .sf-stats-aside > section { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid rgba(239,230,207,0.10); }
   .sf-stats-aside > section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
 
+  /* player switcher: desktop chip layout vs mobile dropdown */
+  .sf-switcher-mobile { display: none; }
+  .sf-switcher-mobile-menu button:hover { background: rgba(239,230,207,0.06); }
+  .sf-switcher-trigger:hover { border-color: rgba(239,230,207,0.4); }
+
   /* ---------- MOBILE / TABLET ---------- */
   @media (max-width: 880px) {
     .sf-chart-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
@@ -63,6 +68,10 @@
     .sf-now-showing { font-size: 22px !important; }
     .sf-insight-headline { font-size: 19px !important; }
     .sf-starters-row { gap: 8px !important; }
+    .sf-switcher-desktop { display: none !important; }
+    .sf-switcher-mobile { display: block !important; }
+    .sf-switcher-kicker { display: none !important; }
+    .sf-switcher-line { display: none !important; }
   }
   @media (max-width: 420px) {
     .sf-hero h1 .sf-tree-row { display: none !important; }
@@ -113,11 +122,11 @@
 
     <div class="sf-hero-grid" style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; margin-top: 48px; align-items: end;">
       <p style="font-family: 'Roboto Slab', serif; font-weight: 400; font-size: 20px; line-height: 1.5; color: rgba(239,230,207,0.92); margin: 0; max-width: 660px; text-wrap: pretty;">
-        Shot Forest reimagines the industry-standard hex shot chart as a literal forest &mdash; a nod to the classic Timberwolves <em>Trees</em> jerseys the fan base still loves. Each tree grows where someone takes a shot: the bigger the tree, the more frequent the shot; the brighter the tree, the better that shot goes down versus the rest of the league. Every player's forest is unique to the shots they take and make. Sometimes you really do need to see the forest for the trees.
+        Shot Forest reimagines the industry-standard hex shot chart as a literal forest in a nod to the classic, beloved Timberwolves trees. Each tree grows where a player takes a shot: the bigger the tree, the more frequent the shot; the brighter the tree, the better that shot goes down versus the rest of the league. Every player's forest is unique to the shots they take and make. Sometimes you really do need to see the forest for the trees.
       </p>
       <div class="sf-hero-jumplinks" style="display: flex; gap: 16px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em;">
         <a href="#methodology" style="color: #EFE6CF; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: 1px solid rgba(239,230,207,0.24); padding: 10px 16px; transition: border-color 150ms, color 150ms;">
-          <span style="color: #8FEDA6;">●</span> READ THE METHODOLOGY <span style="opacity: 0.55;">&darr;</span>
+          <span style="color: #8FEDA6;">●</span> READ THE DETAILS <span style="opacity: 0.55;">&darr;</span>
         </a>
       </div>
     </div>
@@ -125,9 +134,9 @@
 
   <!-- PLAYER SWITCHER -->
   <section class="sf-switcher" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 40px 36px 16px; border-top: 1px solid rgba(239,230,207,0.08);">
-    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 20px; flex-wrap: wrap;">
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">WHO IS SHOOTING</span>
-      <span style="height: 1px; flex: 1; min-width: 40px; background: rgba(239,230,207,0.10);"></span>
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 18px; flex-wrap: wrap;">
+      <span class="sf-switcher-kicker" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">WHO IS SHOOTING</span>
+      <span class="sf-switcher-line" style="height: 1px; flex: 1; min-width: 40px; background: rgba(239,230,207,0.10);"></span>
       <!-- season toggle -->
       <div style="display: inline-flex; align-items: center; gap: 0; border: 1px solid rgba(239,230,207,0.18); padding: 2px;">
         {{ seasonToggle }}
@@ -238,10 +247,7 @@
 
         <!-- DYNAMIC INSIGHTS -->
         <section class="sf-insights-block">
-          <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px;">
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #8FEDA6;">● SO WHAT</span>
-            <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.42);">THREE TAKEAWAYS</span>
-          </div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #8FEDA6; margin-bottom: 14px;">● FOREST FACTS</div>
           {{ insights }}
         </section>
 
@@ -291,7 +297,7 @@
 
         <!-- methodology micro-note -->
         <section class="sf-meth-note" style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; line-height: 1.55; color: rgba(239,230,207,0.55);">
-          Shots are binned on a hex grid (radius &asymp; 2.5&nbsp;ft) and a tree grows wherever the player took at least 2 shots from that spot. <a href="#methodology" style="color: #8FEDA6; text-decoration: none; border-bottom: 1px solid rgba(143,237,166,0.4);">Read the methodology &darr;</a>
+          Shots are binned on a hex grid (radius &asymp; 2.5&nbsp;ft) and a tree grows wherever the player took at least 2 shots from that spot. <a href="#methodology" style="color: #8FEDA6; text-decoration: none; border-bottom: 1px solid rgba(143,237,166,0.4);">Read the details &darr;</a>
         </section>
       </aside>
     </div>
@@ -301,8 +307,6 @@
   <section id="methodology" class="sf-meth" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 80px; border-top: 1px solid rgba(239,230,207,0.08);">
     <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 48px;">
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #8FEDA6;">● THE DETAILS</span>
-      <span style="height: 1px; flex: 1; max-width: 80px; background: rgba(239,230,207,0.24);"></span>
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">METHODOLOGY &amp; READING NOTES</span>
     </div>
 
     <div class="sf-meth-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;">
@@ -450,14 +454,31 @@ class Component extends DCLogic {
         `drop-shadow(0 0 ${small}px rgba(${rgb},${aSm}))`;
     }
 
+    // Expand tap target around small trees so they're actually selectable on touch
+    // screens. The hit circle is fully transparent and only used for pointer events.
+    const hitR = Math.max(16, size * 0.85);
+    const hitCy = cy + size * 0.55; // roughly the middle of the tree's silhouette
+
     return React.createElement('g', {
       key: h.id,
       className: 'sf-tree',
       onMouseEnter: () => this.setState({ hovered: h }),
       onMouseMove: (e) => this.setState({ mouse: { x: e.clientX, y: e.clientY } }),
       onMouseLeave: () => this.setState({ hovered: null }),
+      onTouchStart: (e) => {
+        const t = e.touches && e.touches[0];
+        if (!t) return;
+        this.setState({ hovered: h, mouse: { x: t.clientX, y: t.clientY } });
+      },
       style: groupStyle,
     },
+      // invisible tap-target — first so it sits beneath the painted polygons
+      React.createElement('circle', {
+        key: 'hit',
+        cx: cx, cy: hitCy, r: hitR,
+        fill: 'rgba(0,0,0,0)',
+        style: { pointerEvents: 'all' },
+      }),
       React.createElement('polygon', { key: 'b', points: ptsBot, fill: c.fill }),
       React.createElement('polygon', { key: 'm', points: ptsMid, fill: c.fill }),
       React.createElement('polygon', { key: 't', points: ptsTop, fill: c.fill })
@@ -501,92 +522,84 @@ class Component extends DCLogic {
     return 'mid';
   }
 
-  // Build 3 "so what" takeaways from the (filtered, non-low-volume) hex set.
-  // Insights are computed per-scope at render time — no hard-coded copy per player.
+  // Build a few "forest facts" from the (filtered, non-low-volume) hex set.
+  // Computed per-scope at render time — no hard-coded copy per player. Each fact is a
+  // single line; the renderer presents them as a compact bulleted list (no per-fact kickers).
   buildInsights(hexes, scopeLabel, isTeam) {
     if (!hexes || hexes.length === 0) return [];
     const totalAtt = hexes.reduce((s, h) => s + h.att, 0);
     if (totalAtt <= 0) return [];
+    const subject = isTeam ? 'The Wolves' : (scopeLabel.split(' ')[0] || 'They');
     const out = [];
 
     // ---- Zones (group by coarse zoneName) ----
     const zones = {};
     for (const h of hexes) {
       const z = this.zoneName(h.x, h.y);
-      if (!zones[z]) zones[z] = { att: 0, makes: 0, pts: 0, leagueExp: 0 };
+      if (!zones[z]) zones[z] = { att: 0, makes: 0, leagueExp: 0 };
       zones[z].att += h.att;
       zones[z].makes += h.makes;
-      zones[z].pts += h.att * h.pps;
       zones[z].leagueExp += h.att * h.league_fg_pct;
     }
     const zArr = Object.entries(zones).map(([name, v]) => ({
       name,
       att: v.att,
       fg: v.att ? v.makes / v.att : 0,
-      pps: v.att ? v.pts / v.att : 0,
-      leagueFg: v.att ? v.leagueExp / v.att : 0,
       share: v.att / totalAtt,
       vsLeague: v.att ? ((v.makes / v.att) - (v.leagueExp / v.att)) * 100 : 0,
     }));
 
-    // ---- INSIGHT 1: Hottest grove (best zone vs league with meaningful volume) ----
+    // Phrase a zone name with the right preposition: "At the rim" stays as-is,
+    // "Top-of-key 3" becomes "from the top-of-key 3", etc.
+    const zonePhrase = (name) => {
+      const lo = name.toLowerCase();
+      if (lo.startsWith('at ') || lo.startsWith('in ')) return lo;
+      return 'from the ' + lo;
+    };
+
+    // Compute dense first so we can pick a hot zone that's *different* from it —
+    // keeps the three facts from collapsing onto the same spot for rim-only players.
+    const dense = zArr.slice().sort((a, b) => b.att - a.att)[0];
+
+    // FACT 1: hottest spot vs the rest of the league (needs real volume)
     const minHotAtt = Math.max(8, totalAtt * 0.04);
-    const hotZones = zArr.filter(z => z.att >= minHotAtt && z.vsLeague > 0)
-                         .sort((a, b) => b.vsLeague - a.vsLeague);
-    if (hotZones.length) {
-      const hot = hotZones[0];
-      out.push({
-        kicker: 'Hottest grove',
-        headline: hot.name,
-        detail: `${this.pct(hot.fg)} on ${this.formatNum(hot.att)} attempts — that's ${(hot.vsLeague >= 0 ? '+' : '') + hot.vsLeague.toFixed(1)}% above what the rest of the league shoots from the same spots.`,
-        accent: '#8FEDA6',
-      });
+    const hotCandidates = zArr.filter(z => z.att >= minHotAtt && z.vsLeague > 0)
+                              .sort((a, b) => b.vsLeague - a.vsLeague);
+    const hot = (dense && hotCandidates.find(z => z.name !== dense.name)) || hotCandidates[0];
+    if (hot) {
+      const subj = subject === 'The Wolves' ? 'They' : subject;
+      const verb = subject === 'The Wolves' ? 'shoot' : 'shoots';
+      out.push(`${subj} ${verb} <strong>${this.pct(hot.fg)}</strong> ${zonePhrase(hot.name)} &mdash; ${(hot.vsLeague >= 0 ? '+' : '') + hot.vsLeague.toFixed(1)}% above the league from the same spots.`);
     }
 
-    // ---- INSIGHT 2: Where the forest grows densest (volume hotspot) ----
-    const dense = zArr.slice().sort((a, b) => b.att - a.att)[0];
+    // FACT 2: volume hotspot — where the forest grows densest
     if (dense) {
       const sharePct = Math.round(dense.share * 100);
-      out.push({
-        kicker: 'Where the forest grows densest',
-        headline: dense.name,
-        detail: `${sharePct}% of ${isTeam ? 'team' : 'their'} attempts come from this area — the tallest stand in the forest.`,
-        accent: '#4FB874',
-      });
+      out.push(`<strong>${dense.name}</strong> holds ${sharePct}% of attempts &mdash; the tallest stand in the forest.`);
     }
 
-    // ---- INSIGHT 3: Shot diet (rim / paint / mid / three split) ----
-    const diet = { rim: 0, paint: 0, mid: 0, three: 0 };
-    for (const h of hexes) diet[this.shotBucket(h)] += h.att;
-    const dShare = {
-      rim: diet.rim / totalAtt,
-      paint: diet.paint / totalAtt,
-      mid: diet.mid / totalAtt,
-      three: diet.three / totalAtt,
+    // FACT 3: shot mix (rim / paint / mid / three split) — no "diet" metaphor
+    const mix = { rim: 0, paint: 0, mid: 0, three: 0 };
+    for (const h of hexes) mix[this.shotBucket(h)] += h.att;
+    const ms = {
+      rim: mix.rim / totalAtt,
+      paint: mix.paint / totalAtt,
+      mid: mix.mid / totalAtt,
+      three: mix.three / totalAtt,
     };
-    let dietHead, dietDetail;
-    if (dShare.three >= 0.55) {
-      dietHead = 'Lives beyond the arc';
-      dietDetail = `${Math.round(dShare.three * 100)}% of shots are threes. The rest split paint and mid-range.`;
-    } else if (dShare.rim >= 0.45) {
-      dietHead = 'Rim-hunter';
-      dietDetail = `${Math.round(dShare.rim * 100)}% of shots come within five feet of the basket.`;
-    } else if ((dShare.rim + dShare.paint) >= 0.6) {
-      dietHead = 'Paint-dweller';
-      dietDetail = `${Math.round((dShare.rim + dShare.paint) * 100)}% of shots come at the rim or inside the paint.`;
-    } else if (dShare.mid >= 0.3) {
-      dietHead = 'Mid-range is alive here';
-      dietDetail = `${Math.round(dShare.mid * 100)}% of shots come from the long-two zone — unusual in 2026.`;
+    let mixLine;
+    if (ms.three >= 0.55) {
+      mixLine = `<strong>${Math.round(ms.three * 100)}% of shots are threes</strong> &mdash; this forest lives beyond the arc.`;
+    } else if (ms.rim >= 0.45) {
+      mixLine = `<strong>${Math.round(ms.rim * 100)}% of shots come within five feet of the basket</strong> &mdash; the canopy is dense around the rim.`;
+    } else if ((ms.rim + ms.paint) >= 0.6) {
+      mixLine = `<strong>${Math.round((ms.rim + ms.paint) * 100)}% of shots happen inside the paint</strong> &mdash; this forest grows close to the basket.`;
+    } else if (ms.mid >= 0.3) {
+      mixLine = `<strong>${Math.round(ms.mid * 100)}% of shots come from mid-range</strong> &mdash; that's unusually thick mid-floor cover in 2026.`;
     } else {
-      dietHead = 'Balanced shot diet';
-      dietDetail = `${Math.round(dShare.three * 100)}% threes · ${Math.round((dShare.rim + dShare.paint) * 100)}% in the paint · ${Math.round(dShare.mid * 100)}% mid-range.`;
+      mixLine = `Shots are spread across the floor: <strong>${Math.round(ms.three * 100)}% threes</strong>, ${Math.round((ms.rim + ms.paint) * 100)}% in the paint, ${Math.round(ms.mid * 100)}% mid-range.`;
     }
-    out.push({
-      kicker: 'Shot diet',
-      headline: dietHead,
-      detail: dietDetail,
-      accent: '#D8FBE0',
-    });
+    out.push(mixLine);
 
     return out;
   }
@@ -595,28 +608,31 @@ class Component extends DCLogic {
     if (!insights || !insights.length) {
       return React.createElement('div', {
         style: { fontFamily: 'Hanken Grotesk, sans-serif', fontSize: 13, color: 'rgba(239,230,207,0.55)' },
-      }, 'No insights yet — pick a player to plant their forest.');
+      }, 'No facts yet &mdash; pick a player to plant their forest.');
     }
-    return React.createElement('div', {
-      style: { display: 'flex', flexDirection: 'column', gap: 16 },
-    }, ...insights.map((ins, i) => React.createElement('div', {
+    return React.createElement('ul', {
+      style: {
+        listStyle: 'none', padding: 0, margin: 0,
+        display: 'flex', flexDirection: 'column', gap: 12,
+      },
+    }, ...insights.map((html, i) => React.createElement('li', {
       key: i,
       style: {
-        position: 'relative',
-        paddingLeft: 14,
-        borderLeft: `2px solid ${ins.accent}`,
+        display: 'flex', alignItems: 'flex-start', gap: 12,
+        fontFamily: 'Hanken Grotesk, sans-serif',
+        fontSize: 14, lineHeight: 1.5,
+        color: 'rgba(239,230,207,0.88)',
       },
     },
-      React.createElement('div', {
-        style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.14em', color: 'rgba(239,230,207,0.55)', textTransform: 'uppercase', marginBottom: 4 },
-      }, ins.kicker),
-      React.createElement('div', {
-        className: 'sf-insight-headline',
-        style: { fontFamily: 'Roboto Slab, serif', fontWeight: 700, fontSize: 20, lineHeight: 1.2, color: '#EFE6CF', marginBottom: 6, letterSpacing: '-0.01em' },
-      }, ins.headline),
-      React.createElement('div', {
-        style: { fontFamily: 'Hanken Grotesk, sans-serif', fontSize: 13.5, lineHeight: 1.5, color: 'rgba(239,230,207,0.78)' },
-      }, ins.detail)
+      // mini tree bullet
+      React.createElement('svg', {
+        width: 10, height: 13, viewBox: '0 0 12 16', style: { flexShrink: 0, marginTop: 4 },
+      },
+        React.createElement('polygon', { points: '6,2 10,7 2,7', fill: '#8FEDA6' }),
+        React.createElement('polygon', { points: '6,5 11,11 1,11', fill: '#4FB874' }),
+        React.createElement('polygon', { points: '6,8 12,15 0,15', fill: '#2F7B4F' })
+      ),
+      React.createElement('span', { dangerouslySetInnerHTML: { __html: html } })
     )));
   }
 
@@ -731,22 +747,32 @@ class Component extends DCLogic {
       );
     }
 
-    // ---- Chip row: starters at full strength + a collapsible Bench group ----
-    // Starting five (TEAM is pinned at the front of the starters row). When the Wolves
-    // open with a different lineup, just edit this list.
+    // ---- Player switcher ----
+    // Starting five (TEAM is pinned ahead of the starters row). Tweak this list if the
+    // opening five changes.
     const STARTERS = ['1630162', '1628978', '1630183', '203944', '203497'];
     const chipScopes = dsetForChips.scopes || {};
     const chipPlayers = dsetForChips.players || [];
+    const activeId = String(this.state.scope);
+    const lookupAtt = (id) => id === 'TEAM'
+      ? (chipScopes.TEAM && chipScopes.TEAM.totals && chipScopes.TEAM.totals.att)
+      : (chipPlayers.find(p => String(p.id) === id) || {}).att;
+    const lookupLabel = (id) => id === 'TEAM' ? 'All Wolves'
+      : ((chipScopes[id] && chipScopes[id].label) || '');
 
-    // Build a chip from a scope id; shared helper for both starter and bench buttons.
+    // Bench = everyone NOT in starters & not TEAM, in player-order (already attempts-desc).
+    const benchIds = chipPlayers
+      .map(p => String(p.id))
+      .filter(id => !STARTERS.includes(id) && id !== 'TEAM' && chipScopes[id]);
+
+    // ---- Shared button factories ----
+    // CHIP: used in the desktop layout (starters row + expanded bench row).
     const makeChip = (id, size) => {
       const s = chipScopes[id];
       if (!s) return null;
-      const active = this.state.scope === id;
-      const label = id === 'TEAM' ? 'All Wolves' : s.label;
-      const attCount = id === 'TEAM'
-        ? chipScopes.TEAM?.totals?.att
-        : chipPlayers.find(p => String(p.id) === id)?.att;
+      const active = activeId === id;
+      const label = lookupLabel(id);
+      const attCount = lookupAtt(id);
       const isLarge = size === 'large';
       return React.createElement('button', {
         key: id,
@@ -757,15 +783,11 @@ class Component extends DCLogic {
           color: active ? '#0A1410' : '#EFE6CF',
           border: '1px solid ' + (active ? '#EFE6CF' : 'rgba(239,230,207,0.18)'),
           padding: isLarge ? '12px 18px 12px 14px' : '8px 14px 8px 10px',
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '10px',
+          display: 'inline-flex', alignItems: 'center', gap: '10px',
           fontFamily: 'Hanken Grotesk, system-ui, sans-serif',
           fontSize: isLarge ? '14px' : '12.5px',
-          fontWeight: 600,
-          letterSpacing: '0.01em',
-          cursor: 'pointer',
-          whiteSpace: 'nowrap',
+          fontWeight: 600, letterSpacing: '0.01em',
+          cursor: 'pointer', whiteSpace: 'nowrap',
           transition: 'background 150ms, border-color 150ms, color 150ms',
         },
       },
@@ -779,35 +801,76 @@ class Component extends DCLogic {
         ),
         React.createElement('span', null, label),
         attCount ? React.createElement('span', {
-          style: {
-            fontFamily: 'JetBrains Mono, monospace',
-            fontSize: isLarge ? 11 : 10,
-            opacity: 0.55,
-            letterSpacing: '0.05em',
-          },
+          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: isLarge ? 11 : 10, opacity: 0.55, letterSpacing: '0.05em' },
         }, attCount.toLocaleString()) : null
       );
     };
 
-    const starterChips = ['TEAM', ...STARTERS].map(id => makeChip(id, 'large')).filter(Boolean);
-    // Bench = everyone NOT in starters & not TEAM, in descending attempts order.
-    const benchIds = chipPlayers
-      .map(p => String(p.id))
-      .filter(id => !STARTERS.includes(id) && id !== 'TEAM' && chipScopes[id]);
-    const benchChips = benchIds.map(id => makeChip(id, 'small')).filter(Boolean);
+    // ROW: full-width row used inside the mobile dropdown panel.
+    const makeRow = (id) => {
+      const s = chipScopes[id];
+      if (!s) return null;
+      const active = activeId === id;
+      const label = lookupLabel(id);
+      const attCount = lookupAtt(id);
+      return React.createElement('button', {
+        key: 'row-' + id,
+        onClick: () => this.setState({ scope: id, mobileOpen: false, hovered: null }),
+        style: {
+          width: '100%',
+          display: 'flex', alignItems: 'center', gap: 12,
+          padding: '13px 16px',
+          background: active ? 'rgba(143,237,166,0.10)' : 'transparent',
+          color: active ? '#D8FBE0' : '#EFE6CF',
+          border: 'none',
+          borderTop: '1px solid rgba(239,230,207,0.06)',
+          fontFamily: 'Hanken Grotesk, sans-serif',
+          fontSize: 14.5,
+          fontWeight: active ? 700 : 500,
+          cursor: 'pointer',
+          textAlign: 'left',
+        },
+      },
+        React.createElement('svg', {
+          width: 12, height: 16, viewBox: '0 0 12 16',
+          style: { flexShrink: 0, opacity: active ? 1 : 0.8 },
+        },
+          React.createElement('polygon', { points: '6,2 10,7 2,7', fill: active ? '#D8FBE0' : '#8FEDA6' }),
+          React.createElement('polygon', { points: '6,5 11,11 1,11', fill: active ? '#8FEDA6' : '#4FB874' }),
+          React.createElement('polygon', { points: '6,8 12,15 0,15', fill: active ? '#4FB874' : '#2F7B4F' })
+        ),
+        React.createElement('span', { style: { flex: 1 } }, label),
+        attCount ? React.createElement('span', {
+          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 11, opacity: 0.55, letterSpacing: '0.04em' },
+        }, attCount.toLocaleString()) : null
+      );
+    };
 
-    // If the user has an active selection that lives in the bench, force it open so
-    // they can see what's selected.
-    const benchHoldsActive = benchIds.includes(String(this.state.scope));
+    const groupHead = (key, label) => React.createElement('div', {
+      key: 'h-' + key,
+      style: {
+        fontFamily: 'JetBrains Mono, monospace',
+        fontSize: 10, letterSpacing: '0.18em',
+        color: 'rgba(239,230,207,0.45)',
+        padding: '14px 16px 6px',
+        textTransform: 'uppercase',
+        background: 'rgba(239,230,207,0.02)',
+      },
+    }, label);
+
+    // ---- DESKTOP UI: starters row + collapsible bench ----
+    const starterChips = ['TEAM', ...STARTERS].map(id => makeChip(id, 'large')).filter(Boolean);
+    const benchChipsD = benchIds.map(id => makeChip(id, 'small')).filter(Boolean);
+    const benchHoldsActive = benchIds.includes(activeId);
     const benchOpen = this.state.benchOpen || benchHoldsActive;
 
-    const chips = React.createElement('div', null,
+    const desktopUI = React.createElement('div', { className: 'sf-switcher-desktop' },
       React.createElement('div', {
         className: 'sf-starters-row',
         style: { display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center' },
       }, ...starterChips),
-      benchChips.length ? React.createElement('div', {
-        style: { marginTop: 18, display: 'flex', flexDirection: 'column', gap: 12 },
+      benchChipsD.length ? React.createElement('div', {
+        style: { marginTop: 16, display: 'flex', flexDirection: 'column', gap: 12 },
       },
         React.createElement('button', {
           className: 'sf-bench-toggle',
@@ -817,27 +880,94 @@ class Component extends DCLogic {
             color: 'rgba(239,230,207,0.62)',
             border: '1px dashed rgba(239,230,207,0.22)',
             padding: '8px 14px',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 10,
+            display: 'inline-flex', alignItems: 'center', gap: 10,
             alignSelf: 'flex-start',
             fontFamily: 'JetBrains Mono, monospace',
-            fontSize: 11,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
+            fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase',
             cursor: 'pointer',
             transition: 'color 150ms, border-color 150ms',
           },
         },
           React.createElement('span', { style: { color: '#8FEDA6' } }, benchOpen ? '−' : '+'),
           'BENCH',
-          React.createElement('span', { style: { opacity: 0.55 } }, '(' + benchChips.length + ')')
+          React.createElement('span', { style: { opacity: 0.55 } }, '(' + benchChipsD.length + ')')
         ),
         benchOpen ? React.createElement('div', {
           style: { display: 'flex', flexWrap: 'wrap', gap: 8, paddingTop: 4 },
-        }, ...benchChips) : null
+        }, ...benchChipsD) : null
       ) : null
     );
+
+    // ---- MOBILE UI: single dropdown trigger that opens a grouped sheet ----
+    const mobileOpen = !!this.state.mobileOpen;
+    const activeAtt = lookupAtt(activeId);
+    const activeLabelStr = lookupLabel(activeId);
+
+    const mobileTrigger = React.createElement('button', {
+      className: 'sf-switcher-trigger',
+      onClick: () => this.setState({ mobileOpen: !mobileOpen }),
+      'aria-expanded': mobileOpen,
+      style: {
+        width: '100%',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        gap: 12,
+        background: '#0E1C16',
+        color: '#EFE6CF',
+        border: '1px solid rgba(239,230,207,0.20)',
+        padding: '12px 14px',
+        fontFamily: 'Hanken Grotesk, sans-serif',
+        fontSize: 15, fontWeight: 600,
+        cursor: 'pointer',
+        transition: 'border-color 150ms',
+      },
+    },
+      React.createElement('span', { style: { display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 } },
+        React.createElement('svg', { width: 14, height: 18, viewBox: '0 0 12 16', style: { flexShrink: 0 } },
+          React.createElement('polygon', { points: '6,2 10,7 2,7', fill: '#8FEDA6' }),
+          React.createElement('polygon', { points: '6,5 11,11 1,11', fill: '#4FB874' }),
+          React.createElement('polygon', { points: '6,8 12,15 0,15', fill: '#2F7B4F' })
+        ),
+        React.createElement('span', {
+          style: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+        }, activeLabelStr),
+        activeAtt ? React.createElement('span', {
+          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 11, opacity: 0.55, letterSpacing: '0.05em' },
+        }, activeAtt.toLocaleString()) : null
+      ),
+      React.createElement('span', {
+        style: {
+          fontSize: 12, color: 'rgba(239,230,207,0.62)',
+          transition: 'transform 150ms',
+          transform: mobileOpen ? 'rotate(180deg)' : 'none',
+          display: 'inline-block',
+        },
+      }, '▾')
+    );
+
+    const mobilePanel = mobileOpen ? React.createElement('div', {
+      className: 'sf-switcher-mobile-menu',
+      style: {
+        marginTop: 6,
+        background: '#0E1C16',
+        border: '1px solid rgba(239,230,207,0.18)',
+        maxHeight: 'min(60vh, 480px)',
+        overflowY: 'auto',
+      },
+    },
+      groupHead('team', 'All'),
+      makeRow('TEAM'),
+      groupHead('starters', 'Starters'),
+      ...STARTERS.map(id => makeRow(id)).filter(Boolean),
+      benchIds.length ? groupHead('bench', 'Bench') : null,
+      ...benchIds.map(id => makeRow(id)).filter(Boolean)
+    ) : null;
+
+    const mobileUI = React.createElement('div', { className: 'sf-switcher-mobile' },
+      mobileTrigger,
+      mobilePanel
+    );
+
+    const chips = React.createElement('div', null, desktopUI, mobileUI);
 
     // headshot (placeholder ring if TEAM or missing)
     let headshot;
@@ -866,22 +996,32 @@ class Component extends DCLogic {
     const insightsList = isEmpty ? [] : this.buildInsights(hexes, scope.label, isTeam);
     const insights = this.renderInsights(insightsList);
 
-    // Tooltip — fixed width so the FG row doesn't reflow when "—" flips to a percentage.
+    // Tooltip — fixed width on desktop (so the FG row doesn't reflow when "—" flips to a
+    // percentage), and a much more compact form factor on small screens so it doesn't eat
+    // the chart it's annotating.
     let tooltip = null;
     if (this.state.hovered) {
       const h = this.state.hovered;
       const arrowUp = h.vs_league > 0;
       const deltaColor = h.low_volume ? 'rgba(239,230,207,0.55)' : (arrowUp ? '#8FEDA6' : '#E29A9A');
-      const TT_W = 264;
+      const vw = window.innerWidth;
+      const isMobile = vw < 600;
+      const TT_W = isMobile ? Math.min(220, vw - 24) : 264;
+      const TT_PAD = isMobile ? '10px 12px' : '14px 16px';
+      const FG_SIZE = isMobile ? 22 : 28;
+      const DELTA_SIZE = isMobile ? 15 : 18;
+      const SMALL_SIZE = isMobile ? 11 : 13;
+      const ZONE_SIZE = isMobile ? 9 : 10;
+
       tooltip = React.createElement('div', {
         style: {
           position: 'fixed',
-          left: Math.min(window.innerWidth - TT_W - 12, this.state.mouse.x + 16),
-          top: Math.min(window.innerHeight - 200, this.state.mouse.y + 16),
+          left: Math.min(vw - TT_W - 12, Math.max(12, this.state.mouse.x + 16)),
+          top: Math.min(window.innerHeight - (isMobile ? 140 : 200), this.state.mouse.y + 16),
           zIndex: 50,
           background: '#13241D',
           border: '1px solid rgba(239,230,207,0.20)',
-          padding: '14px 16px',
+          padding: TT_PAD,
           width: TT_W + 'px',
           boxSizing: 'border-box',
           pointerEvents: 'none',
@@ -891,35 +1031,35 @@ class Component extends DCLogic {
         },
       },
         React.createElement('div', {
-          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.16em', color: 'rgba(239,230,207,0.55)', marginBottom: 6 },
+          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: ZONE_SIZE, letterSpacing: '0.16em', color: 'rgba(239,230,207,0.55)', marginBottom: isMobile ? 4 : 6 },
         }, '● ' + this.zoneName(h.x, h.y).toUpperCase()),
         React.createElement('div', {
-          style: { fontFamily: 'Roboto Slab, serif', fontWeight: 900, fontSize: 28, lineHeight: 1, marginBottom: 12, letterSpacing: '-0.01em' },
+          style: { fontFamily: 'Roboto Slab, serif', fontWeight: 900, fontSize: FG_SIZE, lineHeight: 1, marginBottom: isMobile ? 8 : 12, letterSpacing: '-0.01em' },
         }, h.low_volume ? '—' : this.pct(h.fg_pct)),
         React.createElement('div', {
-          style: { display: 'flex', gap: 16, fontSize: 12, color: 'rgba(239,230,207,0.7)' },
+          style: { display: 'flex', gap: isMobile ? 12 : 16, fontSize: 12, color: 'rgba(239,230,207,0.7)' },
         },
           React.createElement('div', null,
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'ATT'),
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.att)
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: ZONE_SIZE, opacity: 0.55 } }, 'ATT'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: SMALL_SIZE } }, h.att)
           ),
           React.createElement('div', null,
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'MAKES'),
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.makes)
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: ZONE_SIZE, opacity: 0.55 } }, 'MAKES'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: SMALL_SIZE } }, h.makes)
           ),
           React.createElement('div', null,
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'PPS'),
-            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.pps.toFixed(2))
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: ZONE_SIZE, opacity: 0.55 } }, 'PPS'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: SMALL_SIZE } }, h.pps.toFixed(2))
           )
         ),
         React.createElement('div', {
-          style: { marginTop: 12, paddingTop: 10, borderTop: '1px solid rgba(239,230,207,0.10)', display: 'flex', alignItems: 'baseline', gap: 8 },
+          style: { marginTop: isMobile ? 8 : 12, paddingTop: isMobile ? 8 : 10, borderTop: '1px solid rgba(239,230,207,0.10)', display: 'flex', alignItems: 'baseline', gap: 8 },
         },
           React.createElement('span', {
-            style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.12em', color: 'rgba(239,230,207,0.55)' },
+            style: { fontFamily: 'JetBrains Mono, monospace', fontSize: ZONE_SIZE, letterSpacing: '0.12em', color: 'rgba(239,230,207,0.55)' },
           }, 'VS LEAGUE'),
           React.createElement('span', {
-            style: { fontFamily: 'Roboto Slab, serif', fontWeight: 700, fontSize: 18, color: deltaColor, letterSpacing: '-0.005em' },
+            style: { fontFamily: 'Roboto Slab, serif', fontWeight: 700, fontSize: DELTA_SIZE, color: deltaColor, letterSpacing: '-0.005em' },
           }, h.low_volume ? 'LOW VOLUME' : ((arrowUp ? '+' : '') + h.vs_league.toFixed(1) + '%'))
         )
       );
