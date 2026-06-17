@@ -53,8 +53,6 @@
   <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 56px;">
     <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;">
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E;">● MINNESOTA TIMBERWOLVES</span>
-      <span style="height: 1px; flex: 1; max-width: 80px; background: rgba(239,230,207,0.24);"></span>
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">REGULAR SEASON · 7,258 SHOTS</span>
     </div>
 
     <h1 style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: clamp(82px, 14vw, 224px); line-height: 0.85; letter-spacing: -0.005em; margin: 0; color: #EFE6CF; text-transform: uppercase;">
@@ -336,7 +334,7 @@
 class Component extends DCLogic {
   state = {
     data: null,
-    scope: '1630162', // Anthony Edwards default
+    scope: 'TEAM', // default to the whole roster
     season: 'regular', // 'regular' | 'post'
     hovered: null,
     mouse: { x: 0, y: 0 },
