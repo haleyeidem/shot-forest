@@ -557,10 +557,11 @@ class Component extends DCLogic {
     const isEmpty = !activeDataset;
 
     const scope = dsetForChart.scopes[this.state.scope] || dsetForChart.scopes.TEAM;
-    // Drop low-volume hexes entirely, drop the behind-the-rim noise band (data y < -10),
-    // then sort smallest first so big trees paint on top.
+    // Keep only hexes that sit inside the visible court: in front of the rim (y >= -10),
+    // behind the half-court line (y <= 422.5), and inside the sidelines (|x| <= 250).
+    // Drop low-volume noise, then sort smallest-first so big trees paint on top.
     const hexes = scope.hexes
-      .filter(h => !h.low_volume && h.y >= -10)
+      .filter(h => !h.low_volume && h.y >= -10 && h.y <= 422.5 && Math.abs(h.x) <= 250)
       .slice()
       .sort((a, b) => a.att - b.att);
     const maxAtt = Math.max(1, ...hexes.map(h => h.att));
