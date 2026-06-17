@@ -13,7 +13,7 @@ RUN THIS ON YOUR OWN COMPUTER (not a server) — NBA Stats blocks most cloud IPs
     pip install -r requirements.txt
     python build_data.py
 
-Output: ../app/public/data/shot-forest.json
+Output: ../data/shot-forest.json
 """
 
 import os
@@ -28,7 +28,7 @@ import pandas as pd
 TEAM_ID = 1610612750          # Minnesota Timberwolves
 SEASON = "2025-26"
 HEX_RADIUS = 25.5             # court units (tenths of a foot); tune for density
-MIN_ATTEMPTS = 2             # below this a hex is flagged low_volume
+MIN_ATTEMPTS = 2              # below this a hex is flagged low_volume
 XLIM = (-250, 250)
 YLIM = (-47.5, 422.5)
 
