@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Roboto+Slab:wght@400;700;900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0A1410; }
+  *, *::before, *::after { box-sizing: border-box; }
+  @keyframes sf-grow { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .sf-tree { cursor: crosshair; }
+  .sf-tree:hover polygon { fill: #5CE493 !important; }
+  .sf-chip:hover { background: rgba(239,230,207,0.08); }
+  .sf-chip.is-active:hover { background: #EFE6CF; }
+  .sf-seasonbtn:hover { color: #EFE6CF; border-color: rgba(239,230,207,0.4); }
+  .sf-foot-link:hover { color: #5CE493; }
+  /* hide scrollbar on chip row but keep functionality */
+  .sf-chiprow::-webkit-scrollbar { height: 6px; }
+  .sf-chiprow::-webkit-scrollbar-track { background: transparent; }
+  .sf-chiprow::-webkit-scrollbar-thumb { background: rgba(239,230,207,0.18); border-radius: 3px; }
+</style>
+</helmet>
+
+<div data-screen-label="Shot Forest" style="background: #0A1410; color: #EFE6CF; font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif; min-height: 100vh; position: relative; overflow-x: hidden;">
+
+  <!-- ambient forest glow up top -->
+  <div aria-hidden="true" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1400px; height: 720px; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.04) 30%, transparent 65%); pointer-events: none; z-index: 0;"></div>
+
+  <!-- TOP CHROME -->
+  <header style="position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 22px 36px; border-bottom: 1px solid rgba(239,230,207,0.08); gap: 24px;">
+    <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex-shrink: 0;">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex-shrink: 0;">
+        <polygon points="12,3 18,9 6,9" fill="#22C55E"></polygon>
+        <polygon points="12,8 19,15 5,15" fill="#22C55E"></polygon>
+        <polygon points="12,13 20,21 4,21" fill="#22C55E"></polygon>
+      </svg>
+      <span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: 16px; letter-spacing: 0.1em; color: #EFE6CF; white-space: nowrap;">SHOT&nbsp;FOREST</span>
+      <span style="color: rgba(239,230,207,0.32); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; margin-left: 10px; white-space: nowrap;">2025&ndash;26</span>
+    </div>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(239,230,207,0.55); white-space: nowrap;">
+      A PORTFOLIO PIECE BY HALEY EIDEM
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 56px;">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E;">● MINNESOTA TIMBERWOLVES</span>
+      <span style="height: 1px; flex: 1; max-width: 80px; background: rgba(239,230,207,0.24);"></span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">REGULAR SEASON · 7,258 SHOTS</span>
+    </div>
+
+    <h1 style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: clamp(82px, 14vw, 224px); line-height: 0.85; letter-spacing: -0.005em; margin: 0; color: #EFE6CF; text-transform: uppercase;">
+      <span style="display: block;">SHOT</span>
+      <span style="display: inline-block; position: relative;">
+        FOREST
+        <!-- decorative 5-tree lineup callback -->
+        <span aria-hidden="true" style="display: inline-flex; gap: 4px; margin-left: 22px; vertical-align: middle; transform: translateY(-0.18em);">
+          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+        </span>
+      </span>
+    </h1>
+
+    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; margin-top: 56px; align-items: end;">
+      <p style="font-family: 'Roboto Slab', serif; font-weight: 400; font-size: 22px; line-height: 1.45; color: rgba(239,230,207,0.92); margin: 0; max-width: 640px; text-wrap: pretty;">
+        A shot chart for the Minnesota Timberwolves' season, planted as a forest. Each tree grows where someone takes a shot. The bigger the tree, the more frequent the shot. The brighter the tree, the better that shot goes down compared to the rest of the league. Sometimes you really do need to see the forest for the trees.
+      </p>
+      <div style="display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(239,230,207,0.55);">
+        <a href="#methodology" style="color: rgba(239,230,207,0.7); text-decoration: none; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(239,230,207,0.24); padding-bottom: 4px;">
+          <span style="color: #22C55E;">01</span> WHY TREES
+        </a>
+        <a href="#methodology" style="color: rgba(239,230,207,0.7); text-decoration: none; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(239,230,207,0.24); padding-bottom: 4px;">
+          <span style="color: #22C55E;">02</span> READING IT
+        </a>
+        <a href="#methodology" style="color: rgba(239,230,207,0.7); text-decoration: none; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(239,230,207,0.24); padding-bottom: 4px;">
+          <span style="color: #22C55E;">03</span> SOURCES
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAYER SWITCHER -->
+  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 40px 36px 16px; border-top: 1px solid rgba(239,230,207,0.08);">
+    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 20px; flex-wrap: wrap;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">WHO IS SHOOTING</span>
+      <span style="height: 1px; flex: 1; min-width: 40px; background: rgba(239,230,207,0.10);"></span>
+      <!-- season toggle -->
+      <div style="display: inline-flex; align-items: center; gap: 0; border: 1px solid rgba(239,230,207,0.18); padding: 2px;">
+        {{ seasonToggle }}
+      </div>
+    </div>
+    <div class="sf-chiprow" style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px;">
+      {{ chips }}
+    </div>
+  </section>
+
+  <!-- CHART -->
+  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 32px 36px 96px;">
+    <div style="display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;">
+
+      <!-- CHART COURT (basket at BOTTOM = aerial / traditional shot chart orientation) -->
+      <div style="position: relative; background: linear-gradient(180deg, #0A1410 0%, #0E1C16 100%); border: 1px solid rgba(239,230,207,0.08); padding: 16px;">
+        <!-- ambient light pooling around the basket (bottom) -->
+        <div aria-hidden="true" style="position: absolute; bottom: 0; left: 0; right: 0; height: 70%; background: radial-gradient(ellipse 55% 80% at 50% 100%, rgba(92,228,147,0.12) 0%, transparent 65%); pointer-events: none;"></div>
+
+        <!-- court SVG. Inner chart group is flipped: y' = -y + 330. Trees in JS are computed in data coords, will appear growing upward on screen. -->
+        <svg viewBox="-275 -118 550 480" preserveAspectRatio="xMidYMid meet" style="position: relative; display: block; width: 100%; height: auto; overflow: visible;" aria-label="Shot chart">
+          <defs>
+            <radialGradient id="sf-floor" cx="50%" cy="100%" r="80%">
+              <stop offset="0%" stop-color="#1B3328" stop-opacity="0.7"/>
+              <stop offset="60%" stop-color="#0F1F18" stop-opacity="0.2"/>
+              <stop offset="100%" stop-color="#0A1410" stop-opacity="0"/>
+            </radialGradient>
+            <!-- soft drop-shadow for bright trees, applied via CSS filter in JS -->
+            <filter id="sf-tree-soft" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="3"/>
+            </filter>
+          </defs>
+
+          <!-- floor wash (screen coords) -->
+          <rect x="-275" y="-118" width="550" height="480" fill="url(#sf-floor)"/>
+
+          <!-- CHART CONTENT: flipped so data positive y goes UP on screen -->
+          <g transform="matrix(1 0 0 -1 0 330)">
+            <!-- COURT LINES (cream). All strokes the same width + opacity so nothing overlaps or
+                 reads heavier than its neighbor. Rectangles split into individual lines to avoid
+                 double-strokes at shared edges. -->
+            <g fill="none" stroke="#EFE6CF" stroke-width="0.9" stroke-opacity="0.18" stroke-linecap="butt" stroke-linejoin="miter" vector-effect="non-scaling-stroke">
+              <!-- outer half-court boundary, as 4 individual lines -->
+              <line x1="-250" y1="-10" x2="250" y2="-10"/><!-- baseline -->
+              <line x1="-250" y1="422.5" x2="250" y2="422.5"/><!-- half-court -->
+              <line x1="-250" y1="-10" x2="-250" y2="422.5"/><!-- left sideline -->
+              <line x1="250" y1="-10" x2="250" y2="422.5"/><!-- right sideline -->
+              <!-- half-court half-circle (toward basket) -->
+              <path d="M -60,422.5 A 60,60 0 0 1 60,422.5"/>
+              <!-- paint (key) as 3 lines; bottom edge IS the baseline (already drawn) -->
+              <line x1="-80" y1="-10" x2="-80" y2="142.5"/><!-- left -->
+              <line x1="80" y1="-10" x2="80" y2="142.5"/><!-- right -->
+              <line x1="-80" y1="142.5" x2="80" y2="142.5"/><!-- FT line -->
+              <!-- FT circle: half toward rim (solid) -->
+              <path d="M -60,142.5 A 60,60 0 0 0 60,142.5"/>
+              <!-- FT circle: half away from rim (dashed) -->
+              <path d="M -60,142.5 A 60,60 0 0 1 60,142.5" stroke-dasharray="5 6"/>
+              <!-- 3-point corner lines -->
+              <line x1="-220" y1="-10" x2="-220" y2="92.5"/>
+              <line x1="220" y1="-10" x2="220" y2="92.5"/>
+              <!-- 3-point arc -->
+              <path d="M -220,92.5 A 237.5,237.5 0 0 0 220,92.5"/>
+              <!-- restricted area arc -->
+              <path d="M -40,0 A 40,40 0 0 0 40,0"/>
+              <!-- backboard -->
+              <line x1="-30" y1="-7.5" x2="30" y2="-7.5"/>
+              <!-- rim -->
+              <circle cx="0" cy="0" r="7.5"/>
+              <!-- rim attachment -->
+              <line x1="0" y1="0" x2="0" y2="-7.5"/>
+            </g>
+
+            <!-- TREES (computed in JS, data coords) -->
+            {{ trees }}
+          </g>
+
+          <!-- LABELS in SCREEN coords (outside the flipped group so text reads normally).
+               Halfcourt line at screen y=-92.5; baseline at screen y=340. Labels offset clear of both. -->
+          <text x="-260" y="-104" font-family="JetBrains Mono, monospace" font-size="9" fill="#EFE6CF" fill-opacity="0.32" letter-spacing="2">HALF&#x2013;COURT</text>
+          <text x="260" y="356" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="9" fill="#EFE6CF" fill-opacity="0.32" letter-spacing="2">BASELINE</text>
+
+          <!-- POSTSEASON empty state overlay -->
+          {{ postseasonOverlay }}
+        </svg>
+      </div>
+
+      <!-- STATS PANEL -->
+      <aside style="display: flex; flex-direction: column; gap: 28px;">
+
+        <!-- active scope label -->
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55); margin-bottom: 12px;">NOW SHOWING</div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #22C55E; overflow: hidden; flex-shrink: 0; background: #13241D; display: flex; align-items: center; justify-content: center;">
+              {{ headshot }}
+            </div>
+            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: 32px; letter-spacing: 0.01em; color: #EFE6CF; line-height: 0.95; text-transform: uppercase;">{{ activeLabel }}</div>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: rgba(239,230,207,0.10);"></div>
+
+        <!-- HEADLINE STATS -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px;">
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">ATTEMPTS</div>
+            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statAtt }}</div>
+          </div>
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">FG%</div>
+            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statFg }}</div>
+          </div>
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">eFG%</div>
+            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statEfg }}</div>
+          </div>
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">PTS / SHOT</div>
+            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statPps }}</div>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: rgba(239,230,207,0.10);"></div>
+
+        <!-- LEGEND -->
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55); margin-bottom: 16px;">HOW TO READ THE FOREST</div>
+
+          <!-- size scale: 5 trees ascending (brand callback) -->
+          <div style="margin-bottom: 24px;">
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: rgba(239,230,207,0.75); margin-bottom: 10px;">Bigger tree &nbsp;<span style="color: rgba(239,230,207,0.45);">&rarr;</span>&nbsp; more shots from that spot</div>
+            <svg viewBox="0 0 220 60" style="width: 100%; height: 60px;" aria-hidden="true">
+              <!-- 5 trees, ascending size, even gaps between bases. Each: bottom widest -> middle -> top, tip-up. -->
+              <g fill="#22C55E">
+                <polygon points="13,58 24,58 18,54"/><polygon points="14,56 22,56 18,52"/><polygon points="15,53 21,53 18,49"/>
+              </g>
+              <g fill="#22C55E">
+                <polygon points="41,58 59,58 50,51"/><polygon points="44,54 56,54 50,48"/><polygon points="46,50 54,50 50,44"/>
+              </g>
+              <g fill="#22C55E">
+                <polygon points="78,58 102,58 90,49"/><polygon points="81,53 99,53 90,44"/><polygon points="84,47 96,47 90,38"/>
+              </g>
+              <g fill="#22C55E">
+                <polygon points="121,58 155,58 138,45"/><polygon points="126,51 150,51 138,39"/><polygon points="129,43 147,43 138,31"/>
+              </g>
+              <g fill="#22C55E">
+                <polygon points="171,58 213,58 192,42"/><polygon points="176,49 208,49 192,34"/><polygon points="181,39 204,39 192,25"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- color scale -->
+          <div>
+            <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: rgba(239,230,207,0.75); margin-bottom: 10px;">Brighter tree &nbsp;<span style="color: rgba(239,230,207,0.45);">&rarr;</span>&nbsp; better than league avg from there</div>
+            <div style="display: flex; height: 14px; border-radius: 1px; overflow: hidden;">
+              <div style="flex: 1; background: #1F4030;"></div>
+              <div style="flex: 1; background: #0E6B36;"></div>
+              <div style="flex: 1; background: #16A34A;"></div>
+              <div style="flex: 1; background: #22C55E;"></div>
+              <div style="flex: 1; background: #5CE493;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 8px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(239,230,207,0.5); letter-spacing: 0.06em;">
+              <span>&minus;10%</span><span>AVG</span><span>+10%</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 1px; background: rgba(239,230,207,0.10);"></div>
+
+        <!-- methodology micro-note -->
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; line-height: 1.55; color: rgba(239,230,207,0.55);">
+          Shots are binned on a hex grid (radius &asymp; 2.5&nbsp;ft) and a tree grows wherever the player took at least 2 shots. Faint trees mark very-low-volume spots. <a href="#methodology" style="color: #22C55E; text-decoration: none; border-bottom: 1px solid rgba(34,197,94,0.4);">Read the methodology &darr;</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- NUMBERED METHODOLOGY -->
+  <section id="methodology" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 80px; border-top: 1px solid rgba(239,230,207,0.08);">
+    <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 48px;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E;">● THE DETAILS</span>
+      <span style="height: 1px; flex: 1; max-width: 80px; background: rgba(239,230,207,0.24);"></span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">METHODOLOGY &amp; READING NOTES</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;">
+      <div>
+        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">01</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● WHY TREES</div>
+        <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">A hex chart, planted as trees for Minnesota.</h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Hexbin shot charts are the modern standard for a reason: they bin space honestly. The forest is the same chart underneath &mdash; same hex centers, same totals &mdash; rendered as the classic Timberwolves trees, which inspired this whole project.</p>
+      </div>
+
+      <div>
+        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">02</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● READING THE FOREST</div>
+        <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">Size is volume. Color is value.</h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Tree height scales with attempts (square-root, so a few big trees don't drown out the smaller ones). Tree color compares the player's FG% from that hex against the league's FG% from the same hex &mdash; positive means they are out-shooting peers from that exact spot, not just from "the corner" or "the paint" in general.</p>
+      </div>
+
+      <div>
+        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">03</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● THE DATA</div>
+        <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">Real shots, careful baselines.</h3>
+        <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Source is the NBA Stats <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #5CE493; background: rgba(34,197,94,0.08); padding: 1px 6px;">ShotChartDetail</code> endpoint via <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #5CE493; background: rgba(34,197,94,0.08); padding: 1px 6px;">nba_api</code>. League baselines come from every NBA player's shots in the same hex this season, so the comparison is spatial, not zone-level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 64px 36px 56px; border-top: 1px solid rgba(239,230,207,0.08);">
+    <div style="display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;">
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55); margin-bottom: 14px;">● BUILT BY</div>
+        <div style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 32px; line-height: 1.1; color: #EFE6CF; margin-bottom: 12px;">Haley Eidem</div>
+        <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: rgba(239,230,207,0.62); max-width: 480px; line-height: 1.55;">Data storyteller and data scientist. Lifelong Wolves fan.</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+        <a href="https://github.com/" target="_blank" rel="noopener" class="sf-foot-link" style="display: inline-flex; align-items: center; gap: 10px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; color: #EFE6CF; text-decoration: none; padding: 10px 18px; border: 1px solid rgba(239,230,207,0.2); transition: color 150ms, border-color 150ms;">
+          <svg viewBox="0 0 14 18" width="11" height="14" aria-hidden="true"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          GITHUB REPO <span style="opacity: 0.55;">&nearr;</span>
+        </a>
+        <a href="https://www.linkedin.com/in/haleyeidem" target="_blank" rel="noopener" class="sf-foot-link" style="display: inline-flex; align-items: center; gap: 10px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; color: #EFE6CF; text-decoration: none; padding: 10px 18px; border: 1px solid rgba(239,230,207,0.2); transition: color 150ms, border-color 150ms;">
+          <svg viewBox="0 0 14 18" width="11" height="14" aria-hidden="true"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+          LINKEDIN <span style="opacity: 0.55;">&nearr;</span>
+        </a>
+      </div>
+    </div>
+    <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(239,230,207,0.06); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.32); line-height: 1.7;">
+      AN INDEPENDENT, UNOFFICIAL CONCEPT &middot; NOT AFFILIATED WITH THE MINNESOTA TIMBERWOLVES OR THE NBA &middot; DATA &copy; NBA STATS &middot; VISUALIZATION &copy; 2026 HALEY EIDEM
+    </div>
+  </footer>
+
+  {{ tooltip }}
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:2400}}">
+class Component extends DCLogic {
+  state = {
+    data: null,
+    scope: '1630162', // Anthony Edwards default
+    season: 'regular', // 'regular' | 'post'
+    hovered: null,
+    mouse: { x: 0, y: 0 },
+  };
+
+  async componentDidMount() {
+    try {
+      const resp = await fetch('./data/shot-forest.json');
+      this.setState({ data: await resp.json() });
+    } catch (e) {
+      console.error('Shot Forest: failed to load data', e);
+    }
+  }
+
+  // map vs_league delta -> tree color
+  // returns: fill, glow (0..1 intensity for drop-shadow), glowColor
+  // (low_volume trees are filtered out before render, so no entry needed here)
+  treeColor(vs) {
+    if (vs >= 12) return { fill: '#5CE493', glow: 0.55, glowColor: '#5CE493' };
+    if (vs >= 5)  return { fill: '#22C55E', glow: 0.30, glowColor: '#5CE493' };
+    if (vs >= -3) return { fill: '#16A34A', glow: 0.08, glowColor: '#22C55E' };
+    if (vs >= -10) return { fill: '#0E6B36', glow: 0, glowColor: 'transparent' };
+    return { fill: '#1F4030', glow: 0, glowColor: 'transparent' };
+  }
+
+  // tree height in NBA coord units (sqrt scale). Tightened so the biggest tree
+  // doesn't blob over neighbors (hex spacing is ~25 units).
+  treeSize(att, maxAtt) {
+    const base = 9;
+    const range = 30;
+    const denom = Math.sqrt(Math.max(8, maxAtt));
+    const norm = Math.min(1, Math.sqrt(att) / denom);
+    return base + norm * range;
+  }
+
+  zoneName(x, y) {
+    const dist = Math.sqrt(x * x + y * y);
+    const absX = Math.abs(x);
+    if (dist < 50) return 'At the rim';
+    if (dist < 100) return 'Restricted area';
+    // corner threes: behind the corner segment (y < 92.5, |x| > 220)
+    if (y < 92.5 && absX > 215) return x < 0 ? 'Left corner 3' : 'Right corner 3';
+    if (dist >= 237.5) {
+      if (absX < 90) return 'Top-of-key 3';
+      return x < 0 ? 'Left wing 3' : 'Right wing 3';
+    }
+    if (absX < 80) return 'In the paint';
+    if (y < 142.5) return x < 0 ? 'Left short mid' : 'Right short mid';
+    return x < 0 ? 'Left mid-range' : 'Right mid-range';
+  }
+
+  // Render one tree at the given hex position. Returns React element <g>.
+  // Note: chart content lives inside a transform group that flips y. So in DATA
+  // coords, the tree grows toward LARGER y (which becomes "up on screen" after the flip).
+  renderTree(h, maxAtt) {
+    const size = this.treeSize(h.att, maxAtt);
+    const c = this.treeColor(h.vs_league);
+    const cx = h.x;
+    const cy = h.y;
+    const w = size * 1.05;
+    const tierH = size * 0.42;
+    // bottom tier (widest) — base at cy, vertex above (in DATA = larger y)
+    const ptsBot = `${cx - w / 2},${cy} ${cx + w / 2},${cy} ${cx},${cy + tierH}`;
+    // middle tier
+    const midBase = cy + tierH * 0.55;
+    const ptsMid = `${cx - w * 0.78 / 2},${midBase} ${cx + w * 0.78 / 2},${midBase} ${cx},${midBase + tierH * 0.92}`;
+    // top tier (narrowest)
+    const topBase = cy + tierH * 1.18;
+    const ptsTop = `${cx - w * 0.55 / 2},${topBase} ${cx + w * 0.55 / 2},${topBase} ${cx},${topBase + tierH * 0.95}`;
+
+    // very subtle drop-shadow on top-bucket trees only — silhouette glow, no halo
+    let groupStyle = {};
+    if (c.glow > 0) {
+      const blur = 1 + c.glow * 2.2; // up to ~2.2 SVG units
+      const a = (0.18 + c.glow * 0.22).toFixed(2); // up to ~0.30
+      const rgb = this.hexToRgb(c.glowColor);
+      groupStyle.filter = `drop-shadow(0 0 ${blur}px rgba(${rgb},${a}))`;
+    }
+
+    return React.createElement('g', {
+      key: h.id,
+      className: 'sf-tree',
+      onMouseEnter: () => this.setState({ hovered: h }),
+      onMouseMove: (e) => this.setState({ mouse: { x: e.clientX, y: e.clientY } }),
+      onMouseLeave: () => this.setState({ hovered: null }),
+      style: groupStyle,
+    },
+      React.createElement('polygon', { key: 'b', points: ptsBot, fill: c.fill }),
+      React.createElement('polygon', { key: 'm', points: ptsMid, fill: c.fill }),
+      React.createElement('polygon', { key: 't', points: ptsTop, fill: c.fill })
+    );
+  }
+
+  hexToRgb(hex) {
+    const h = hex.replace('#', '');
+    const r = parseInt(h.slice(0, 2), 16);
+    const g = parseInt(h.slice(2, 4), 16);
+    const b = parseInt(h.slice(4, 6), 16);
+    return `${r},${g},${b}`;
+  }
+
+  // weighted aggregate stats over hexes
+  aggregate(hexes) {
+    let att = 0, makes = 0, pts = 0, efgSum = 0;
+    for (const h of hexes) {
+      att += h.att;
+      makes += h.makes;
+      pts += h.att * h.pps;
+      efgSum += h.att * h.efg;
+    }
+    return {
+      att, makes,
+      fg: att ? makes / att : 0,
+      pps: att ? pts / att : 0,
+      efg: att ? efgSum / att : 0,
+    };
+  }
+
+  pct(n) { return (n * 100).toFixed(1) + '%'; }
+
+  formatNum(n) {
+    return n.toLocaleString('en-US');
+  }
+
+  renderVals() {
+    const data = this.state.data;
+    const loading = !data;
+
+    // Determine available season types + the active dataset.
+    // New format (post-pipeline rerun): data.meta.season_types + data.data.<key>.{scopes,players}
+    // Old format (current file): data.scopes + data.players, regular-season only.
+    const seasonTypes = (data && data.meta && data.meta.season_types)
+      ? data.meta.season_types
+      : [{ key: 'regular', label: 'Regular Season' }, { key: 'post', label: 'Postseason' }];
+    const getDataset = (key) => {
+      if (!data) return null;
+      if (data.data) return data.data[key] || null;
+      // old format: only 'regular' is real, anything else is missing
+      if (key === 'regular') return { scopes: data.scopes, players: data.players };
+      return null;
+    };
+    const SHORT_LABEL = { regular: 'REGULAR', playoffs: 'PLAYOFFS', post: 'POSTSEASON', full: 'FULL SEASON' };
+
+    const seasonToggle = seasonTypes.map(s => {
+      const active = this.state.season === s.key;
+      return React.createElement('button', {
+        key: s.key,
+        className: 'sf-seasonbtn',
+        onClick: () => this.setState({ season: s.key, hovered: null }),
+        style: {
+          background: active ? '#EFE6CF' : 'transparent',
+          color: active ? '#0A1410' : 'rgba(239,230,207,0.55)',
+          border: 'none',
+          padding: '6px 14px',
+          fontFamily: 'JetBrains Mono, monospace',
+          fontSize: '10px',
+          fontWeight: 500,
+          letterSpacing: '0.18em',
+          cursor: 'pointer',
+          transition: 'background 150ms, color 150ms',
+        },
+      }, SHORT_LABEL[s.key] || s.label.toUpperCase());
+    });
+
+    if (loading) {
+      return {
+        ready: false,
+        chips: React.createElement('div', { style: { opacity: 0.4, fontSize: 12, padding: 12 } }, 'Loading roster…'),
+        trees: React.createElement('text', { x: 0, y: 200, fill: '#EFE6CF', opacity: 0.4, fontSize: 14, textAnchor: 'middle' }, 'Loading shots…'),
+        tooltip: null,
+        postseasonOverlay: null,
+        seasonToggle,
+        headshot: React.createElement('div', { style: { width: 60, height: 60 } }),
+        activeLabel: '—',
+        statAtt: '—',
+        statFg: '—',
+        statEfg: '—',
+        statPps: '—',
+      };
+    }
+
+    // pick active dataset; fall back to regular if requested season missing
+    const activeDataset = getDataset(this.state.season);
+    const fallbackDataset = getDataset('regular') || { scopes: data.scopes || {}, players: data.players || [] };
+    const dsetForChips = fallbackDataset; // keep chip list stable across season swaps
+    const dsetForChart = activeDataset || fallbackDataset;
+    const isEmpty = !activeDataset;
+
+    const scope = dsetForChart.scopes[this.state.scope] || dsetForChart.scopes.TEAM;
+    // Drop low-volume hexes entirely, drop the behind-the-rim noise band (data y < -10),
+    // then sort smallest first so big trees paint on top.
+    const hexes = scope.hexes
+      .filter(h => !h.low_volume && h.y >= -10)
+      .slice()
+      .sort((a, b) => a.att - b.att);
+    const maxAtt = Math.max(1, ...hexes.map(h => h.att));
+    const treeOpacity = isEmpty ? 0.18 : 1;
+    const trees = React.createElement('g', {
+      key: 'trees',
+      style: { opacity: treeOpacity, transition: 'opacity 240ms ease' },
+    }, ...hexes.map(h => this.renderTree(h, maxAtt)));
+
+    // empty-state overlay when the chosen season has no data yet
+    let postseasonOverlay = null;
+    if (isEmpty) {
+      postseasonOverlay = React.createElement('g', { key: 'post-overlay' },
+        React.createElement('rect', { x: -200, y: 150, width: 400, height: 110, fill: 'rgba(10,20,16,0.82)', stroke: 'rgba(239,230,207,0.18)', strokeWidth: 1 }),
+        React.createElement('text', {
+          x: 0, y: 180, textAnchor: 'middle',
+          fontFamily: 'JetBrains Mono, monospace', fontSize: 9, letterSpacing: 2,
+          fill: '#22C55E',
+        }, '● POSTSEASON · 2026'),
+        React.createElement('text', {
+          x: 0, y: 208, textAnchor: 'middle',
+          fontFamily: 'Big Shoulders Display, sans-serif', fontSize: 24, fontStyle: 'italic', fontWeight: 900, letterSpacing: 1,
+          fill: '#EFE6CF',
+        }, 'STILL GROWING.'),
+        React.createElement('text', {
+          x: 0, y: 234, textAnchor: 'middle',
+          fontFamily: 'Hanken Grotesk, sans-serif', fontSize: 11,
+          fill: 'rgba(239,230,207,0.62)',
+        }, 'Postseason trees will plant here as playoff shots come in.')
+      );
+    }
+
+    // priority chip order
+    const priorityIds = ['TEAM', '1630162', '203944', '1629675', '1628978', '1630183', '203497', '1630538', '201144', '1630545', '1630245', '1641740'];
+    const chipScopes = dsetForChips.scopes || {};
+    const chipPlayers = dsetForChips.players || [];
+    const chips = priorityIds.map(id => {
+      const s = chipScopes[id];
+      if (!s) return null;
+      const active = this.state.scope === id;
+      const label = id === 'TEAM' ? 'All Wolves' : s.label;
+      const attCount = id === 'TEAM' ? chipScopes.TEAM?.totals?.att : chipPlayers.find(p => String(p.id) === id)?.att;
+      return React.createElement('button', {
+        key: id,
+        className: 'sf-chip' + (active ? ' is-active' : ''),
+        onClick: () => this.setState({ scope: id, hovered: null }),
+        style: {
+          background: active ? '#EFE6CF' : 'transparent',
+          color: active ? '#0A1410' : '#EFE6CF',
+          border: '1px solid ' + (active ? '#EFE6CF' : 'rgba(239,230,207,0.18)'),
+          padding: '10px 16px 10px 12px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '10px',
+          fontFamily: 'Hanken Grotesk, system-ui, sans-serif',
+          fontSize: '13px',
+          fontWeight: 600,
+          letterSpacing: '0.02em',
+          cursor: 'pointer',
+          whiteSpace: 'nowrap',
+          flexShrink: 0,
+          transition: 'background 150ms, border-color 150ms, color 150ms',
+        },
+      },
+        // mini tree mark
+        React.createElement('svg', {
+          width: 12, height: 16, viewBox: '0 0 12 16',
+          style: { opacity: active ? 1 : 0.7 },
+        },
+          React.createElement('polygon', { points: '6,2 10,7 2,7', fill: active ? '#0A1410' : '#22C55E' }),
+          React.createElement('polygon', { points: '6,5 11,11 1,11', fill: active ? '#0A1410' : '#22C55E' }),
+          React.createElement('polygon', { points: '6,8 12,15 0,15', fill: active ? '#0A1410' : '#22C55E' })
+        ),
+        React.createElement('span', null, label),
+        React.createElement('span', {
+          style: {
+            fontFamily: 'JetBrains Mono, monospace',
+            fontSize: 10,
+            opacity: 0.55,
+            letterSpacing: '0.05em',
+          },
+        }, attCount ? attCount.toLocaleString() : '')
+      );
+    }).filter(Boolean);
+
+    // headshot (placeholder ring if TEAM or missing)
+    let headshot;
+    if (this.state.scope === 'TEAM' || !scope.headshot) {
+      headshot = React.createElement('svg', { viewBox: '0 0 24 24', width: 32, height: 32 },
+        React.createElement('polygon', { points: '12,4 17,9 7,9', fill: '#22C55E' }),
+        React.createElement('polygon', { points: '12,8 18,14 6,14', fill: '#22C55E' }),
+        React.createElement('polygon', { points: '12,12 19,20 5,20', fill: '#22C55E' })
+      );
+    } else {
+      headshot = React.createElement('img', {
+        src: scope.headshot, alt: scope.label,
+        style: { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' },
+        onError: (e) => { e.target.style.display = 'none'; },
+      });
+    }
+
+    // Aggregate stats from the (filtered) hexes — keeps numbers consistent with what's drawn
+    const advanced = this.aggregate(hexes);
+    const agg = scope.totals
+      ? { att: scope.totals.att, makes: scope.totals.makes, fg: scope.totals.fg_pct }
+      : advanced;
+
+    // Tooltip
+    let tooltip = null;
+    if (this.state.hovered) {
+      const h = this.state.hovered;
+      const arrowUp = h.vs_league > 0;
+      const deltaColor = h.low_volume ? 'rgba(239,230,207,0.55)' : (arrowUp ? '#5CE493' : '#C97C7C');
+      tooltip = React.createElement('div', {
+        style: {
+          position: 'fixed',
+          left: Math.min(window.innerWidth - 280, this.state.mouse.x + 16),
+          top: Math.min(window.innerHeight - 180, this.state.mouse.y + 16),
+          zIndex: 50,
+          background: '#13241D',
+          border: '1px solid rgba(239,230,207,0.20)',
+          padding: '14px 16px',
+          minWidth: '240px',
+          pointerEvents: 'none',
+          boxShadow: '0 16px 40px rgba(0,0,0,0.55)',
+          fontFamily: 'Hanken Grotesk, system-ui, sans-serif',
+          color: '#EFE6CF',
+        },
+      },
+        React.createElement('div', {
+          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.16em', color: 'rgba(239,230,207,0.55)', marginBottom: 6 },
+        }, '● ' + this.zoneName(h.x, h.y).toUpperCase()),
+        React.createElement('div', {
+          style: { fontFamily: 'Big Shoulders Display, sans-serif', fontWeight: 900, fontStyle: 'italic', fontSize: 30, lineHeight: 1, marginBottom: 10 },
+        }, h.low_volume ? '—' : this.pct(h.fg_pct)),
+        React.createElement('div', {
+          style: { display: 'flex', gap: 16, fontSize: 12, color: 'rgba(239,230,207,0.7)' },
+        },
+          React.createElement('div', null,
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'ATT'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.att)
+          ),
+          React.createElement('div', null,
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'MAKES'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.makes)
+          ),
+          React.createElement('div', null,
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: 0.55 } }, 'PPS'),
+            React.createElement('div', { style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 13 } }, h.pps.toFixed(2))
+          )
+        ),
+        React.createElement('div', {
+          style: { marginTop: 12, paddingTop: 10, borderTop: '1px solid rgba(239,230,207,0.10)', display: 'flex', alignItems: 'baseline', gap: 8 },
+        },
+          React.createElement('span', {
+            style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.12em', color: 'rgba(239,230,207,0.55)' },
+          }, 'VS LEAGUE'),
+          React.createElement('span', {
+            style: { fontFamily: 'Big Shoulders Display, sans-serif', fontWeight: 700, fontSize: 20, color: deltaColor, letterSpacing: '0.02em' },
+          }, h.low_volume ? 'LOW VOLUME' : ((arrowUp ? '+' : '') + h.vs_league.toFixed(1) + '%'))
+        )
+      );
+    }
+
+    return {
+      ready: true,
+      chips,
+      trees,
+      tooltip,
+      postseasonOverlay,
+      seasonToggle,
+      headshot,
+      activeLabel: this.state.scope === 'TEAM' ? 'All Wolves' : scope.label,
+      statAtt: isEmpty ? '—' : this.formatNum(agg.att),
+      statFg: isEmpty ? '—' : this.pct(agg.fg),
+      statEfg: isEmpty ? '—' : this.pct(advanced.efg),
+      statPps: isEmpty ? '—' : advanced.pps.toFixed(2),
+    };
+  }
+}
+</script>
+</body>
+</html>
