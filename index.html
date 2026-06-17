@@ -25,6 +25,38 @@
   .sf-chiprow::-webkit-scrollbar { height: 6px; }
   .sf-chiprow::-webkit-scrollbar-track { background: transparent; }
   .sf-chiprow::-webkit-scrollbar-thumb { background: rgba(239,230,207,0.18); border-radius: 3px; }
+
+  /* ---------- MOBILE / TABLET ---------- */
+  @media (max-width: 880px) {
+    .sf-chart-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+    .sf-stats-aside { max-width: 560px; margin: 0 auto !important; width: 100%; }
+  }
+  @media (max-width: 720px) {
+    .sf-chrome { padding: 16px 20px !important; gap: 12px !important; }
+    .sf-chrome-right { display: none !important; }
+    .sf-hero { padding: 64px 20px 40px !important; }
+    .sf-hero h1 { font-size: clamp(56px, 17vw, 140px) !important; line-height: 0.88 !important; }
+    .sf-hero-grid { grid-template-columns: 1fr !important; gap: 28px !important; margin-top: 40px !important; }
+    .sf-hero-grid p { font-size: 18px !important; line-height: 1.5 !important; }
+    .sf-hero-jumplinks { flex-wrap: wrap !important; gap: 14px 22px !important; }
+    .sf-switcher { padding: 32px 20px 14px !important; }
+    .sf-chart-section { padding: 24px 20px 72px !important; }
+    .sf-meth { padding: 72px 20px 64px !important; }
+    .sf-meth-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .sf-meth-grid > div { padding-top: 12px; border-top: 1px solid rgba(239,230,207,0.08); }
+    .sf-meth-grid > div:first-child { border-top: none; padding-top: 0; }
+    .sf-meth-num { font-size: 64px !important; margin-bottom: 16px !important; }
+    .sf-footer { padding: 48px 20px 36px !important; }
+    .sf-footer-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .sf-footer-links { align-items: flex-start !important; }
+    .sf-stats-grid { grid-template-columns: 1fr 1fr !important; gap: 22px 24px !important; }
+    .sf-now-showing { font-size: 26px !important; }
+    .sf-stat-num { font-size: 40px !important; }
+  }
+  @media (max-width: 420px) {
+    .sf-hero h1 .sf-tree-row { display: none !important; }
+    .sf-chiprow { gap: 8px !important; }
+  }
 </style>
 </helmet>
 
@@ -34,7 +66,7 @@
   <div aria-hidden="true" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 1400px; height: 720px; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.04) 30%, transparent 65%); pointer-events: none; z-index: 0;"></div>
 
   <!-- TOP CHROME -->
-  <header style="position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 22px 36px; border-bottom: 1px solid rgba(239,230,207,0.08); gap: 24px;">
+  <header class="sf-chrome" style="position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 22px 36px; border-bottom: 1px solid rgba(239,230,207,0.08); gap: 24px;">
     <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex-shrink: 0;">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex-shrink: 0;">
         <polygon points="12,3 18,9 6,9" fill="#22C55E"></polygon>
@@ -44,37 +76,36 @@
       <span style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: 16px; letter-spacing: 0.1em; color: #EFE6CF; white-space: nowrap;">SHOT&nbsp;FOREST</span>
       <span style="color: rgba(239,230,207,0.32); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; margin-left: 10px; white-space: nowrap;">2025&ndash;26</span>
     </div>
-    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(239,230,207,0.55); white-space: nowrap;">
+    <div class="sf-chrome-right" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(239,230,207,0.55); white-space: nowrap;">
       A PORTFOLIO PIECE BY HALEY EIDEM
     </div>
   </header>
 
   <!-- HERO -->
-  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 56px;">
+  <section class="sf-hero" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 56px;">
     <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 28px;">
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E;">● MINNESOTA TIMBERWOLVES</span>
     </div>
 
     <h1 style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: clamp(82px, 14vw, 224px); line-height: 0.85; letter-spacing: -0.005em; margin: 0; color: #EFE6CF; text-transform: uppercase;">
       <span style="display: block;">SHOT</span>
-      <span style="display: inline-block; position: relative;">
-        FOREST
-        <!-- decorative 5-tree lineup callback -->
-        <span aria-hidden="true" style="display: inline-flex; gap: 4px; margin-left: 22px; vertical-align: middle; transform: translateY(-0.18em);">
-          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
-          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
-          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
-          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
-          <svg viewBox="0 0 14 18" width="14" height="18"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
-        </span>
-      </span>
+      <span style="display: block;">FOREST</span>
     </h1>
 
-    <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; margin-top: 56px; align-items: end;">
+    <!-- 5-tree lineup: sits below the wordmark, so MINNESOTA TIMBERWOLVES (green above) + trees (green below) frame SHOT FOREST -->
+    <div class="sf-tree-row" aria-hidden="true" style="display: flex; gap: 10px; margin-top: 22px; align-items: flex-end;">
+      <svg viewBox="0 0 14 18" width="26" height="34"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+      <svg viewBox="0 0 14 18" width="26" height="34"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+      <svg viewBox="0 0 14 18" width="26" height="34"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+      <svg viewBox="0 0 14 18" width="26" height="34"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+      <svg viewBox="0 0 14 18" width="26" height="34"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
+    </div>
+
+    <div class="sf-hero-grid" style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; margin-top: 56px; align-items: end;">
       <p style="font-family: 'Roboto Slab', serif; font-weight: 400; font-size: 22px; line-height: 1.45; color: rgba(239,230,207,0.92); margin: 0; max-width: 640px; text-wrap: pretty;">
         A shot chart for the Minnesota Timberwolves' season, planted as a forest. Each tree grows where someone takes a shot. The bigger the tree, the more frequent the shot. The brighter the tree, the better that shot goes down compared to the rest of the league. Sometimes you really do need to see the forest for the trees.
       </p>
-      <div style="display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(239,230,207,0.55);">
+      <div class="sf-hero-jumplinks" style="display: flex; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: rgba(239,230,207,0.55);">
         <a href="#methodology" style="color: rgba(239,230,207,0.7); text-decoration: none; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(239,230,207,0.24); padding-bottom: 4px;">
           <span style="color: #22C55E;">01</span> WHY TREES
         </a>
@@ -89,7 +120,7 @@
   </section>
 
   <!-- PLAYER SWITCHER -->
-  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 40px 36px 16px; border-top: 1px solid rgba(239,230,207,0.08);">
+  <section class="sf-switcher" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 40px 36px 16px; border-top: 1px solid rgba(239,230,207,0.08);">
     <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 20px; flex-wrap: wrap;">
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">WHO IS SHOOTING</span>
       <span style="height: 1px; flex: 1; min-width: 40px; background: rgba(239,230,207,0.10);"></span>
@@ -104,8 +135,8 @@
   </section>
 
   <!-- CHART -->
-  <section style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 32px 36px 96px;">
-    <div style="display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;">
+  <section class="sf-chart-section" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 32px 36px 96px;">
+    <div class="sf-chart-grid" style="display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;">
 
       <!-- CHART COURT (basket at BOTTOM = aerial / traditional shot chart orientation) -->
       <div style="position: relative; background: linear-gradient(180deg, #0A1410 0%, #0E1C16 100%); border: 1px solid rgba(239,230,207,0.08); padding: 16px;">
@@ -180,7 +211,7 @@
       </div>
 
       <!-- STATS PANEL -->
-      <aside style="display: flex; flex-direction: column; gap: 28px;">
+      <aside class="sf-stats-aside" style="display: flex; flex-direction: column; gap: 28px;">
 
         <!-- active scope label -->
         <div>
@@ -189,29 +220,29 @@
             <div style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #22C55E; overflow: hidden; flex-shrink: 0; background: #13241D; display: flex; align-items: center; justify-content: center;">
               {{ headshot }}
             </div>
-            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: 32px; letter-spacing: 0.01em; color: #EFE6CF; line-height: 0.95; text-transform: uppercase;">{{ activeLabel }}</div>
+            <div class="sf-now-showing" style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 900; font-style: italic; font-size: 32px; letter-spacing: 0.01em; color: #EFE6CF; line-height: 0.95; text-transform: uppercase;">{{ activeLabel }}</div>
           </div>
         </div>
 
         <div style="height: 1px; background: rgba(239,230,207,0.10);"></div>
 
         <!-- HEADLINE STATS -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px;">
+        <div class="sf-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px;">
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">ATTEMPTS</div>
-            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statAtt }}</div>
+            <div class="sf-stat-num" style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statAtt }}</div>
           </div>
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">FG%</div>
-            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statFg }}</div>
+            <div class="sf-stat-num" style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statFg }}</div>
           </div>
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">eFG%</div>
-            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statEfg }}</div>
+            <div class="sf-stat-num" style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statEfg }}</div>
           </div>
           <div>
             <div style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: rgba(239,230,207,0.45); margin-bottom: 4px;">PTS / SHOT</div>
-            <div style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statPps }}</div>
+            <div class="sf-stat-num" style="font-family: 'Big Shoulders Display', sans-serif; font-weight: 700; font-size: 48px; line-height: 0.9; color: #EFE6CF;">{{ statPps }}</div>
           </div>
         </div>
 
@@ -271,30 +302,30 @@
   </section>
 
   <!-- NUMBERED METHODOLOGY -->
-  <section id="methodology" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 80px; border-top: 1px solid rgba(239,230,207,0.08);">
+  <section id="methodology" class="sf-meth" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 96px 36px 80px; border-top: 1px solid rgba(239,230,207,0.08);">
     <div style="display: flex; align-items: baseline; gap: 14px; margin-bottom: 48px;">
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E;">● THE DETAILS</span>
       <span style="height: 1px; flex: 1; max-width: 80px; background: rgba(239,230,207,0.24);"></span>
       <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55);">METHODOLOGY &amp; READING NOTES</span>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;">
+    <div class="sf-meth-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;">
       <div>
-        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">01</div>
+        <div class="sf-meth-num" style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">01</div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● WHY TREES</div>
         <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">A hex chart, planted as trees for Minnesota.</h3>
         <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Hexbin shot charts are the modern standard for a reason: they bin space honestly. The forest is the same chart underneath &mdash; same hex centers, same totals &mdash; rendered as the classic Timberwolves trees, which inspired this whole project.</p>
       </div>
 
       <div>
-        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">02</div>
+        <div class="sf-meth-num" style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">02</div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● READING THE FOREST</div>
         <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">Size is volume. Color is value.</h3>
         <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Tree height scales with attempts (square-root, so a few big trees don't drown out the smaller ones). Tree color compares the player's FG% from that hex against the league's FG% from the same hex &mdash; positive means they are out-shooting peers from that exact spot, not just from "the corner" or "the paint" in general.</p>
       </div>
 
       <div>
-        <div style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">03</div>
+        <div class="sf-meth-num" style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: 84px; line-height: 1; color: rgba(239,230,207,0.16); margin-bottom: 24px;">03</div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #22C55E; margin-bottom: 12px;">● THE DATA</div>
         <h3 style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 26px; line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 16px; color: #EFE6CF;">Real shots, careful baselines.</h3>
         <p style="font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; line-height: 1.55; color: rgba(239,230,207,0.72); margin: 0;">Source is the NBA Stats <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #5CE493; background: rgba(34,197,94,0.08); padding: 1px 6px;">ShotChartDetail</code> endpoint via <code style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #5CE493; background: rgba(34,197,94,0.08); padding: 1px 6px;">nba_api</code>. League baselines come from every NBA player's shots in the same hex this season, so the comparison is spatial, not zone-level.</p>
@@ -303,14 +334,14 @@
   </section>
 
   <!-- FOOTER -->
-  <footer style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 64px 36px 56px; border-top: 1px solid rgba(239,230,207,0.08);">
-    <div style="display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;">
+  <footer class="sf-footer" style="position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 64px 36px 56px; border-top: 1px solid rgba(239,230,207,0.08);">
+    <div class="sf-footer-grid" style="display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end;">
       <div>
         <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: rgba(239,230,207,0.55); margin-bottom: 14px;">● BUILT BY</div>
         <div style="font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 32px; line-height: 1.1; color: #EFE6CF; margin-bottom: 12px;">Haley Eidem</div>
         <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 14px; color: rgba(239,230,207,0.62); max-width: 480px; line-height: 1.55;">Data storyteller and data scientist. Lifelong Wolves fan.</div>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
+      <div class="sf-footer-links" style="display: flex; flex-direction: column; gap: 12px; align-items: flex-end;">
         <a href="https://github.com/" target="_blank" rel="noopener" class="sf-foot-link" style="display: inline-flex; align-items: center; gap: 10px; font-family: 'Hanken Grotesk', sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.06em; color: #EFE6CF; text-decoration: none; padding: 10px 18px; border: 1px solid rgba(239,230,207,0.2); transition: color 150ms, border-color 150ms;">
           <svg viewBox="0 0 14 18" width="11" height="14" aria-hidden="true"><polygon points="2,7 12,7 7,1" fill="#22C55E"/><polygon points="1,12 13,12 7,5" fill="#22C55E"/><polygon points="0,17 14,17 7,9" fill="#22C55E"/></svg>
           GITHUB REPO <span style="opacity: 0.55;">&nearr;</span>
