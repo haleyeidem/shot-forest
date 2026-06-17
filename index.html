@@ -33,6 +33,17 @@
   .sf-switcher-mobile { display: none; }
   .sf-switcher-mobile-menu button:hover { background: rgba(239,230,207,0.06); }
   .sf-switcher-trigger:hover { border-color: rgba(239,230,207,0.4); }
+  /* horizontal-scrolling pill row: subtle scrollbar + right-edge fade for affordance */
+  .sf-switcher-scroll { position: relative; }
+  .sf-switcher-scroll::after {
+    content: ''; position: absolute; top: 0; right: 0; bottom: 6px; width: 48px;
+    pointer-events: none;
+    background: linear-gradient(to right, rgba(10,20,16,0), #0A1410 90%);
+  }
+  .sf-switcher-track::-webkit-scrollbar { height: 4px; }
+  .sf-switcher-track::-webkit-scrollbar-track { background: transparent; }
+  .sf-switcher-track::-webkit-scrollbar-thumb { background: rgba(239,230,207,0.18); border-radius: 2px; }
+  .sf-switcher-track { scrollbar-width: thin; scrollbar-color: rgba(239,230,207,0.18) transparent; }
 
   /* ---------- MOBILE / TABLET ---------- */
   @media (max-width: 880px) {
@@ -521,6 +532,17 @@ class Component extends DCLogic {
     return 'mid';
   }
 
+  // Pull the family name out of a roster label. Trims off generational suffixes
+  // ("Jr.", "Sr.", roman numerals) so "Terrence Shannon Jr." -> "Shannon".
+  lastName(full) {
+    if (!full) return '';
+    const parts = String(full).trim().split(/\s+/);
+    const suffixes = new Set(['Jr.', 'Jr', 'Sr.', 'Sr', 'II', 'III', 'IV', 'V']);
+    let i = parts.length - 1;
+    while (i > 0 && suffixes.has(parts[i])) i--;
+    return parts[i];
+  }
+
   // Build a few "forest facts" from the (filtered, non-low-volume) hex set.
   // Computed per-scope at render time — no hard-coded copy per player. Each fact is a
   // single line; the renderer presents them as a compact bulleted list (no per-fact kickers).
@@ -528,7 +550,7 @@ class Component extends DCLogic {
     if (!hexes || hexes.length === 0) return [];
     const totalAtt = hexes.reduce((s, h) => s + h.att, 0);
     if (totalAtt <= 0) return [];
-    const subject = isTeam ? 'The Wolves' : (scopeLabel.split(' ')[0] || 'They');
+    const subject = isTeam ? 'The Wolves' : (this.lastName(scopeLabel) || 'They');
     const out = [];
 
     // ---- Zones (group by coarse zoneName) ----
@@ -777,13 +799,13 @@ class Component extends DCLogic {
       React.createElement('polygon', { points: '6,8 12,15 0,15', fill: activeFill })
     );
 
-    // PILL: used in the desktop wrapping row.
+    // PILL: used in the desktop one-line horizontal scroll. Name only (no attempt
+    // count) so the row stays compact and reads as a clean roster strip.
     const makePill = (id) => {
       const s = chipScopes[id];
       if (!s) return null;
       const active = activeId === id;
       const label = lookupLabel(id);
-      const attCount = lookupAtt(id);
       return React.createElement('button', {
         key: id,
         className: 'sf-chip' + (active ? ' is-active' : ''),
@@ -798,14 +820,12 @@ class Component extends DCLogic {
           fontSize: 13, fontWeight: active ? 700 : 500,
           letterSpacing: '0.005em',
           cursor: 'pointer', whiteSpace: 'nowrap',
+          flexShrink: 0,
           transition: 'background 150ms, border-color 150ms, color 150ms',
         },
       },
         treeMark(11, active ? '#0A1410' : '#22C55E'),
-        React.createElement('span', null, label),
-        attCount ? React.createElement('span', {
-          style: { fontFamily: 'JetBrains Mono, monospace', fontSize: 10, opacity: active ? 0.6 : 0.5, letterSpacing: '0.04em' },
-        }, attCount.toLocaleString()) : null
+        React.createElement('span', null, label)
       );
     };
 
@@ -843,11 +863,21 @@ class Component extends DCLogic {
       );
     };
 
-    // ---- DESKTOP UI: single wrapping pill row ----
+    // ---- DESKTOP UI: single horizontally-scrolling pill row ----
+    // The fade wrapper hangs off the right edge so users see there's more roster
+    // when the row overflows the viewport.
     const desktopUI = React.createElement('div', {
-      className: 'sf-switcher-desktop',
-      style: { display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' },
-    }, ...sortedIds.map(makePill).filter(Boolean));
+      className: 'sf-switcher-desktop sf-switcher-scroll',
+    },
+      React.createElement('div', {
+        className: 'sf-switcher-track',
+        style: {
+          display: 'flex', flexWrap: 'nowrap', gap: 8, alignItems: 'center',
+          overflowX: 'auto', overflowY: 'hidden',
+          paddingBottom: 6,
+        },
+      }, ...sortedIds.map(makePill).filter(Boolean))
+    );
 
     // ---- MOBILE UI: dropdown trigger + flat panel ----
     const mobileOpen = !!this.state.mobileOpen;
