@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,27 @@
 <helmet>
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <title>Shot Forest — Minnesota Timberwolves shot chart, planted as a forest</title>
+<meta name="description" content="An interactive shot chart for the 2025–26 Minnesota Timberwolves, planted as a forest. Each tree grows where a player takes a shot — bigger means more shots, brighter means better than the league. A portfolio piece by Haley Eidem.">
+<meta name="author" content="Haley Eidem">
+<meta name="theme-color" content="#0A1410">
+
+<!-- Open Graph / share previews -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shot Forest — Timberwolves shot chart, planted as a forest">
+<meta property="og:description" content="An interactive shot chart for the 2025–26 Minnesota Timberwolves, planted as a forest. Each tree grows where a player takes a shot.">
+<meta property="og:url" content="https://haleyeidem.github.io/shot-forest/">
+<meta property="og:image" content="https://haleyeidem.github.io/shot-forest/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Shot Forest wordmark next to a small grove of green trees in a dark forest background.">
+<meta property="og:site_name" content="Shot Forest">
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Shot Forest — Timberwolves shot chart, planted as a forest">
+<meta name="twitter:description" content="An interactive shot chart for the 2025–26 Minnesota Timberwolves, planted as a forest.">
+<meta name="twitter:image" content="https://haleyeidem.github.io/shot-forest/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Roboto+Slab:wght@400;700;900&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -23,7 +44,6 @@
   .sf-chip.is-active:hover { background: #EFE6CF; }
   .sf-seasonbtn:hover { color: #EFE6CF; border-color: rgba(239,230,207,0.4); }
   .sf-foot-link:hover { color: #8FEDA6; }
-  .sf-bench-toggle:hover { color: #EFE6CF; border-color: rgba(239,230,207,0.4); }
 
   /* aside stacking — each block owns its bottom padding & rule so we can re-order on mobile */
   .sf-stats-aside > section { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid rgba(239,230,207,0.10); }
@@ -80,7 +100,6 @@
     .sf-stats-inline { font-size: 12px !important; gap: 10px 14px !important; }
     .sf-now-showing { font-size: 22px !important; }
     .sf-insight-headline { font-size: 19px !important; }
-    .sf-starters-row { gap: 8px !important; }
     .sf-switcher-desktop { display: none !important; }
     .sf-switcher-mobile { display: block !important; }
     .sf-switcher-kicker { display: none !important; }
