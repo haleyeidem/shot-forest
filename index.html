@@ -28,6 +28,8 @@
   /* aside stacking — each block owns its bottom padding & rule so we can re-order on mobile */
   .sf-stats-aside > section { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid rgba(239,230,207,0.10); }
   .sf-stats-aside > section:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: none; }
+  /* legend size & color scales stacked with a consistent gap on desktop */
+  .sf-legend-row { display: flex; flex-direction: column; gap: 18px; }
 
   /* player switcher: desktop chip layout vs mobile dropdown */
   .sf-switcher-mobile { display: none; }
@@ -55,8 +57,8 @@
     .sf-insights-block { order: 0; }
     .sf-stats-block { order: 1; }
     .sf-meth-note { order: 2; }
-    .sf-legend-block .sf-legend-row svg { height: 44px !important; }
     .sf-legend-block .sf-legend-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px; }
+    .sf-legend-block .sf-legend-row svg { height: 40px !important; }
   }
   @media (max-width: 720px) {
     .sf-chrome { padding: 16px 20px !important; gap: 12px !important; }
@@ -118,7 +120,7 @@
 
     <h1 style="font-family: 'Roboto Slab', serif; font-weight: 900; font-size: clamp(56px, 9vw, 132px); line-height: 0.95; letter-spacing: -0.022em; margin: 0; color: #EFE6CF;">
       <span style="display: block;">Shot</span>
-      <span style="display: block;">Forest.</span>
+      <span style="display: block;">Forest</span>
     </h1>
 
     <!-- 5-tree lineup: sits below the wordmark, so MINNESOTA TIMBERWOLVES (green above) + trees (green below) frame SHOT FOREST -->
@@ -269,7 +271,7 @@
             <!-- size scale -->
             <div>
               <div style="font-family: 'Hanken Grotesk', sans-serif; font-size: 12px; color: rgba(239,230,207,0.75); margin-bottom: 8px;">Taller tree = more shots</div>
-              <svg viewBox="0 0 220 60" style="width: 100%; height: 56px; display: block;" aria-hidden="true">
+              <svg viewBox="0 22 220 38" style="width: 100%; height: 36px; display: block;" aria-hidden="true">
                 <g fill="#22C55E">
                   <polygon points="13,58 24,58 18,54"/><polygon points="14,56 22,56 18,52"/><polygon points="15,53 21,53 18,49"/>
                 </g>
@@ -544,13 +546,19 @@ class Component extends DCLogic {
   }
 
   // Build a few "forest facts" from the (filtered, non-low-volume) hex set.
-  // Computed per-scope at render time — no hard-coded copy per player. Each fact is a
-  // single line; the renderer presents them as a compact bulleted list (no per-fact kickers).
+  // Voice goal: plain, human, easy to read. The forest metaphor stays in the section
+  // title ("Forest Facts") — the lines themselves use straightforward basketball language.
   buildInsights(hexes, scopeLabel, isTeam) {
     if (!hexes || hexes.length === 0) return [];
     const totalAtt = hexes.reduce((s, h) => s + h.att, 0);
     if (totalAtt <= 0) return [];
-    const subject = isTeam ? 'The Wolves' : (this.lastName(scopeLabel) || 'They');
+
+    // Subject + verb agreement: team is plural ("they shoot"), player is singular ("Edwards shoots").
+    const subj = isTeam ? 'They' : (this.lastName(scopeLabel) || 'They');
+    const shoot = isTeam ? 'shoot' : 'shoots';
+    const take = isTeam ? 'take' : 'takes';
+    const possessive = isTeam ? 'their' : 'his';
+    const Possessive = isTeam ? 'Their' : 'His';
     const out = [];
 
     // ---- Zones (group by coarse zoneName) ----
@@ -570,36 +578,34 @@ class Component extends DCLogic {
       vsLeague: v.att ? ((v.makes / v.att) - (v.leagueExp / v.att)) * 100 : 0,
     }));
 
-    // Phrase a zone name with the right preposition: "At the rim" stays as-is,
-    // "Top-of-key 3" becomes "from the top-of-key 3", etc.
+    // Phrase a zone with the right preposition: "At the rim" / "In the paint" keep
+    // their natural prepositions; everything else takes "from the".
     const zonePhrase = (name) => {
       const lo = name.toLowerCase();
       if (lo.startsWith('at ') || lo.startsWith('in ')) return lo;
       return 'from the ' + lo;
     };
 
-    // Compute dense first so we can pick a hot zone that's *different* from it —
-    // keeps the three facts from collapsing onto the same spot for rim-only players.
+    // Compute dense first so we can pick a hot zone different from it — keeps the
+    // three facts from collapsing onto one spot for rim-only players (Gobert, etc).
     const dense = zArr.slice().sort((a, b) => b.att - a.att)[0];
 
-    // FACT 1: hottest spot vs the rest of the league (needs real volume)
+    // FACT 1: where they shoot best vs the league (needs real volume)
     const minHotAtt = Math.max(8, totalAtt * 0.04);
     const hotCandidates = zArr.filter(z => z.att >= minHotAtt && z.vsLeague > 0)
                               .sort((a, b) => b.vsLeague - a.vsLeague);
     const hot = (dense && hotCandidates.find(z => z.name !== dense.name)) || hotCandidates[0];
     if (hot) {
-      const subj = subject === 'The Wolves' ? 'They' : subject;
-      const verb = subject === 'The Wolves' ? 'shoot' : 'shoots';
-      out.push(`${subj} ${verb} <strong>${this.pct(hot.fg)}</strong> ${zonePhrase(hot.name)} &mdash; ${(hot.vsLeague >= 0 ? '+' : '') + hot.vsLeague.toFixed(1)}% above the league from the same spots.`);
+      out.push(`${subj} ${shoot} <strong>${this.pct(hot.fg)}</strong> ${zonePhrase(hot.name)} &mdash; ${hot.vsLeague.toFixed(1)} points above the league average.`);
     }
 
-    // FACT 2: volume hotspot — where the forest grows densest
+    // FACT 2: where they take the most shots
     if (dense) {
       const sharePct = Math.round(dense.share * 100);
-      out.push(`<strong>${dense.name}</strong> holds ${sharePct}% of attempts &mdash; the tallest stand in the forest.`);
+      out.push(`${subj} ${take} <strong>${sharePct}%</strong> of ${possessive} shots ${zonePhrase(dense.name)} &mdash; ${possessive} most-used spot on the floor.`);
     }
 
-    // FACT 3: shot mix (rim / paint / mid / three split) — no "diet" metaphor
+    // FACT 3: shot mix (rim / paint / mid / three) — plain language, no metaphors
     const mix = { rim: 0, paint: 0, mid: 0, three: 0 };
     for (const h of hexes) mix[this.shotBucket(h)] += h.att;
     const ms = {
@@ -610,15 +616,15 @@ class Component extends DCLogic {
     };
     let mixLine;
     if (ms.three >= 0.55) {
-      mixLine = `<strong>${Math.round(ms.three * 100)}% of shots are threes</strong> &mdash; this forest lives beyond the arc.`;
+      mixLine = `<strong>${Math.round(ms.three * 100)}%</strong> of ${possessive} shots are threes.`;
     } else if (ms.rim >= 0.45) {
-      mixLine = `<strong>${Math.round(ms.rim * 100)}% of shots come within five feet of the basket</strong> &mdash; the canopy is dense around the rim.`;
+      mixLine = `<strong>${Math.round(ms.rim * 100)}%</strong> of ${possessive} shots come within five feet of the basket.`;
     } else if ((ms.rim + ms.paint) >= 0.6) {
-      mixLine = `<strong>${Math.round((ms.rim + ms.paint) * 100)}% of shots happen inside the paint</strong> &mdash; this forest grows close to the basket.`;
+      mixLine = `<strong>${Math.round((ms.rim + ms.paint) * 100)}%</strong> of ${possessive} shots come from inside the paint.`;
     } else if (ms.mid >= 0.3) {
-      mixLine = `<strong>${Math.round(ms.mid * 100)}% of shots come from mid-range</strong> &mdash; that's unusually thick mid-floor cover in 2026.`;
+      mixLine = `<strong>${Math.round(ms.mid * 100)}%</strong> of ${possessive} shots come from mid-range &mdash; rare in today's NBA.`;
     } else {
-      mixLine = `Shots are spread across the floor: <strong>${Math.round(ms.three * 100)}% threes</strong>, ${Math.round((ms.rim + ms.paint) * 100)}% in the paint, ${Math.round(ms.mid * 100)}% mid-range.`;
+      mixLine = `${Possessive} shot mix is balanced: <strong>${Math.round(ms.three * 100)}%</strong> threes, ${Math.round((ms.rim + ms.paint) * 100)}% in the paint, ${Math.round(ms.mid * 100)}% mid-range.`;
     }
     out.push(mixLine);
 
@@ -629,7 +635,7 @@ class Component extends DCLogic {
     if (!insights || !insights.length) {
       return React.createElement('div', {
         style: { fontFamily: 'Hanken Grotesk, sans-serif', fontSize: 13, color: 'rgba(239,230,207,0.55)' },
-      }, 'No facts yet &mdash; pick a player to plant their forest.');
+      }, 'Not enough shots yet to plant a forest.');
     }
     return React.createElement('ul', {
       style: {
@@ -783,9 +789,19 @@ class Component extends DCLogic {
     const lookupLabel = (id) => id === 'TEAM' ? 'All Wolves'
       : ((chipScopes[id] && chipScopes[id].label) || '');
 
-    // chipPlayers comes back from the pipeline already sorted by attempts desc.
-    const sortedIds = ['TEAM',
-      ...chipPlayers.map(p => String(p.id)).filter(id => chipScopes[id])
+    // Only players with at least one plottable hex appear in the picker. Players whose
+    // shots are all single-attempt low-volume hexes (e.g. Enrique Freeman early-season)
+    // would otherwise render an empty forest with a "not enough shots" placeholder.
+    // Re-sort by attempts desc as a defensive measure in case the pipeline ever produces
+    // a roster list that isn't ordered.
+    const sortedIds = ['TEAM', ...chipPlayers
+      .filter(p => {
+        const sc = chipScopes[String(p.id)];
+        return sc && sc.hexes && sc.hexes.some(h => !h.low_volume);
+      })
+      .slice()
+      .sort((a, b) => (b.att || 0) - (a.att || 0))
+      .map(p => String(p.id))
     ];
 
     // Single-color tree mark — matches the favicon. One factory used both
